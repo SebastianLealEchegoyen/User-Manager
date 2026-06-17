@@ -9,20 +9,27 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     ports:
-      - "8080:8080"
+      - "3000:3000"
+    env_file:
+      - .env
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: usermanager
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
-      OAUTH2_ISSUER_URI: ${OAUTH2_ISSUER_URI:http://localhost:9000}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
 volumes:
   pgdata:
