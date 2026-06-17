@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth0 Spring Boot Login</title>
+</head>
+<body>
+    <h1>Auth0 Spring Boot Login Sample</h1>
+
+    <div sec:authorize="!isAuthenticated()">
+        <p>You are not logged in.</p>
+        <a href="/oauth2/authorization/okta">Login</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <p>Welcome, <span sec:authentication="name">User</span>!</p>
+        <ul>
+            <li><a href="/profile">View Profile</a></li>
+            <li>
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

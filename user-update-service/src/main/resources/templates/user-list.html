@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Users - Update Service</title>
+</head>
+<body>
+    <h1>User Update Service</h1>
+
+    <div sec:authorize="!isAuthenticated()">
+        <p>You are not logged in.</p>
+        <a href="/oauth2/authorization/okta">Login</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <p>Select a user to edit:</p>
+
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.email}">email</td>
+                <td th:text="${user.fullName}">name</td>
+                <td><a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a></td>
+            </tr>
+        </table>
+
+        <form th:action="@{/logout}" method="post" style="margin-top:20px;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

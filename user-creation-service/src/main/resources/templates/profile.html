@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <a href="/">Home</a>
+
+    <div th:if="${profile}">
+        <img th:if="${profile['picture']}" th:src="${profile['picture']}" width="64" height="64" alt="Profile picture" />
+        <h2 th:text="${profile['name']}">Name</h2>
+        <p th:text="${profile['email']}">Email</p>
+    </div>
+
+    <h3>All Claims</h3>
+    <pre th:text="${profileJson}">Claims JSON</pre>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

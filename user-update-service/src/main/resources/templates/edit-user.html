@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+    <h1>Edit User</h1>
+    <a href="/">Back to Users</a>
+
+    <div th:if="${success}" style="color:green; margin:10px 0;">
+        <p th:text="${success}">Success</p>
+    </div>
+    <div th:if="${error}" style="color:red; margin:10px 0;">
+        <p th:text="${error}">Error</p>
+    </div>
+
+    <form th:action="@{/users/{id}/edit(id=${user.id})}" method="post">
+        <div style="margin:10px 0;">
+            <label for="email">Email:</label><br/>
+            <input type="email" id="email" name="email" th:value="${user.email}" required />
+        </div>
+        <div style="margin:10px 0;">
+            <label for="fullName">Full Name:</label><br/>
+            <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required />
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
