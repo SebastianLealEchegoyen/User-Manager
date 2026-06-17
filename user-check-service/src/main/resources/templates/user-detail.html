@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Detail</title>
+</head>
+<body>
+    <h1>User Detail</h1>
+    <a href="/">Back to All Users</a> | <a href="/search">Search</a>
+
+    <table border="1" cellpadding="8" style="margin-top:10px;">
+        <tr>
+            <th>ID</th>
+            <td th:text="${user.id}">id</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}">email</td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td th:text="${user.fullName}">name</td>
+        </tr>
+        <tr>
+            <th>Created At</th>
+            <td th:text="${user.createdAt}">date</td>
+        </tr>
+    </table>
+</body>
+</html>

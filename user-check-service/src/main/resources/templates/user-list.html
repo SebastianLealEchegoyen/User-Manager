@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users - Check Service</title>
+</head>
+<body>
+    <h1>User Check Service</h1>
+
+    <div sec:authorize="!isAuthenticated()">
+        <p>You are not logged in.</p>
+        <a href="/oauth2/authorization/okta">Login</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <p><a href="/search">Search by ID</a></p>
+
+        <h2>All Users</h2>
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">id</td>
+                <td th:text="${user.email}">email</td>
+                <td th:text="${user.fullName}">name</td>
+                <td th:text="${user.createdAt}">date</td>
+                <td><a th:href="@{/view/{id}(id=${user.id})}">View</a></td>
+            </tr>
+        </table>
+        <p>Total: <span th:text="${users.size()}">0</span> users</p>
+
+        <form th:action="@{/logout}" method="post" style="margin-top:20px;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

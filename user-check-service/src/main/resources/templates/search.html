@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search User</title>
+</head>
+<body>
+    <h1>Search User by ID</h1>
+    <a href="/">Back to All Users</a>
+
+    <form th:action="@{/search}" method="get" style="margin:10px 0;">
+        <label for="id">User ID (UUID):</label><br/>
+        <input type="text" id="id" name="id" placeholder="e.g. a1b2c3d4-e5f6-7890-abcd-ef1234567890" size="40" required />
+        <button type="submit">Search</button>
+    </form>
+
+    <div th:if="${error}" style="color:red; margin:10px 0;">
+        <p th:text="${error}">Error</p>
+    </div>
+
+    <div th:if="${user}">
+        <h2>Result</h2>
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>ID</th>
+                <td th:text="${user.id}">id</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="${user.email}">email</td>
+            </tr>
+            <tr>
+                <th>Full Name</th>
+                <td th:text="${user.fullName}">name</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td th:text="${user.createdAt}">date</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
